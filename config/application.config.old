@@ -21,8 +21,7 @@ return array(
         'ZF\\ContentValidation',
         'ZF\\Rest',
         'ZF\\Rpc',
-        'ZF\\Versioning',
-        'WM2014API'
+        'ZF\\Versioning'
     ),
     'module_listener_options' => array(
         'module_paths' => array(
