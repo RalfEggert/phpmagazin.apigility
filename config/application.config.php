@@ -22,7 +22,8 @@ return array(
         'ZF\\Rest',
         'ZF\\Rpc',
         'ZF\\Versioning',
-        'WM2014API'
+        'WM2014API',
+        'WM2014Bet'
     ),
     'module_listener_options' => array(
         'module_paths' => array(

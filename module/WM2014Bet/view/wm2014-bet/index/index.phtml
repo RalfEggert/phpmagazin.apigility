@@ -1,0 +1,39 @@
+<?php
+/**
+ * Zend Framework 2 - PHP-Magazin Apigility
+ *
+ * Beispiele für ZF2 Apigility
+ *
+ * @package    Application
+ * @author     Ralf Eggert <r.eggert@travello.de>
+ * @link       http://www.ralfeggert.de/
+ */
+
+?>
+<h1>Liste der Spiele</h1>
+<table class="table table-bordered table-responsive table-striped table-hover table-condensed">
+    <thead>
+    <tr>
+        <th>Spiel</th>
+        <th>Team 1</th>
+        <th>Team 2</th>
+        <th>Datum</th>
+        <th>&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($this->matches as $match) : ?>
+        <tr>
+            <td><?php echo $match->id ?></td>
+            <td><?php echo $this->teams[$match->team1] ?></td>
+            <td><?php echo $this->teams[$match->team2] ?></td>
+            <td><?php echo $match->date ?></td>
+            <td>
+                <a href="<?php echo $this->url('wm2014-bet/action', array('action' => 'show', 'id' => $match->id)) ?>" class="btn btn-success btn-sm">
+                    anzeigen
+                </a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
