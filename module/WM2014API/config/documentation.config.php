@@ -60,4 +60,66 @@ return array(
         ),
         'description' => 'REST service to retrieve team collections and entities.',
     ),
+    'WM2014API\\V1\\Rest\\Matches\\Controller' => array(
+        'collection' => array(
+            'GET' => array(
+                'description' => 'Retrieve a paginated list of matches.',
+                'request' => null,
+                'response' => '{
+   "_links": {
+       "self": {
+           "href": "/matches"
+       },
+       "first": {
+           "href": "/matches?page={page}"
+       },
+       "prev": {
+           "href": "/matches?page={page}"
+       },
+       "next": {
+           "href": "/matches?page={page}"
+       },
+       "last": {
+           "href": "/matches?page={page}"
+       }
+   }
+   "_embedded": {
+       "matches": [
+           {
+               "_links": {
+                   "self": {
+                       "href": "/matches[/:matches_id]"
+                   }
+               }
+              "id": "Match identifier",
+              "team1": "Team 1 to play match",
+              "team2": "Team 2 to play match",
+              "date": "Date of match"
+           }
+       ]
+   }
+}',
+            ),
+            'description' => 'Retrieve a match collection.',
+        ),
+        'entity' => array(
+            'GET' => array(
+                'description' => 'Retrieve an entity of a match.',
+                'request' => null,
+                'response' => '{
+   "_links": {
+       "self": {
+           "href": "/matches[/:matches_id]"
+       }
+   }
+   "id": "Match identifier",
+   "team1": "Team 1 to play match",
+   "team2": "Team 2 to play match",
+   "date": "Date of match"
+}',
+            ),
+            'description' => 'Retrieve a match entity.',
+        ),
+        'description' => 'REST service to retrieve match collections and entities.',
+    ),
 );

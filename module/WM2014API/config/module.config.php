@@ -11,11 +11,21 @@ return array(
                     ),
                 ),
             ),
+            'wm2014-api.rest.matches' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/matches[/:matches_id]',
+                    'defaults' => array(
+                        'controller' => 'WM2014API\\V1\\Rest\\Matches\\Controller',
+                    ),
+                ),
+            ),
         ),
     ),
     'zf-versioning' => array(
         'uri' => array(
             0 => 'wm2014-api.rest.teams',
+            1 => 'wm2014-api.rest.matches',
         ),
     ),
     'zf-rest' => array(
@@ -37,10 +47,29 @@ return array(
             'collection_class' => 'WM2014API\\V1\\Rest\\Teams\\TeamsCollection',
             'service_name' => 'teams',
         ),
+        'WM2014API\\V1\\Rest\\Matches\\Controller' => array(
+            'listener' => 'WM2014API\\V1\\Rest\\Matches\\MatchesResource',
+            'route_name' => 'wm2014-api.rest.matches',
+            'route_identifier_name' => 'matches_id',
+            'collection_name' => 'matches',
+            'entity_http_methods' => array(
+                0 => 'GET',
+            ),
+            'collection_http_methods' => array(
+                0 => 'GET',
+            ),
+            'collection_query_whitelist' => array(),
+            'page_size' => '48',
+            'page_size_param' => null,
+            'entity_class' => 'WM2014API\\V1\\Rest\\Matches\\MatchesEntity',
+            'collection_class' => 'WM2014API\\V1\\Rest\\Matches\\MatchesCollection',
+            'service_name' => 'matches',
+        ),
     ),
     'zf-content-negotiation' => array(
         'controllers' => array(
             'WM2014API\\V1\\Rest\\Teams\\Controller' => 'HalJson',
+            'WM2014API\\V1\\Rest\\Matches\\Controller' => 'HalJson',
         ),
         'accept_whitelist' => array(
             'WM2014API\\V1\\Rest\\Teams\\Controller' => array(
@@ -48,9 +77,18 @@ return array(
                 1 => 'application/hal+json',
                 2 => 'application/json',
             ),
+            'WM2014API\\V1\\Rest\\Matches\\Controller' => array(
+                0 => 'application/vnd.wm2014-api.v1+json',
+                1 => 'application/hal+json',
+                2 => 'application/json',
+            ),
         ),
         'content_type_whitelist' => array(
             'WM2014API\\V1\\Rest\\Teams\\Controller' => array(
+                0 => 'application/vnd.wm2014-api.v1+json',
+                1 => 'application/json',
+            ),
+            'WM2014API\\V1\\Rest\\Matches\\Controller' => array(
                 0 => 'application/vnd.wm2014-api.v1+json',
                 1 => 'application/json',
             ),
@@ -70,6 +108,18 @@ return array(
                 'route_identifier_name' => 'teams_id',
                 'is_collection' => true,
             ),
+            'WM2014API\\V1\\Rest\\Matches\\MatchesEntity' => array(
+                'entity_identifier_name' => 'id',
+                'route_name' => 'wm2014-api.rest.matches',
+                'route_identifier_name' => 'matches_id',
+                'hydrator' => 'Zend\\Stdlib\\Hydrator\\ArraySerializable',
+            ),
+            'WM2014API\\V1\\Rest\\Matches\\MatchesCollection' => array(
+                'entity_identifier_name' => 'id',
+                'route_name' => 'wm2014-api.rest.matches',
+                'route_identifier_name' => 'matches_id',
+                'is_collection' => true,
+            ),
         ),
     ),
     'zf-apigility' => array(
@@ -83,9 +133,16 @@ return array(
             ),
             '' => array(
                 'adapter_name' => 'MySQL',
-                'table_name' => 'teams',
-                'table_service' => 'WM2014API\\V1\\Rest\\Teams\\TeamsResource\\Table',
+                'table_name' => 'matches',
+                'table_service' => 'WM2014API\\V1\\Rest\\Matches\\MatchesResource\\Table',
                 'hydrator_name' => 'Zend\\Stdlib\\Hydrator\\ArraySerializable',
+                'entity_identifier_name' => 'id',
+            ),
+            'WM2014API\\V1\\Rest\\Matches\\MatchesResource' => array(
+                'adapter_name' => 'MySQL',
+                'table_name' => 'matches',
+                'hydrator_name' => 'Zend\\Stdlib\\Hydrator\\ArraySerializable',
+                'controller_service_name' => 'WM2014API\\V1\\Rest\\Matches\\Controller',
                 'entity_identifier_name' => 'id',
             ),
         ),
@@ -93,6 +150,9 @@ return array(
     'zf-content-validation' => array(
         'WM2014API\\V1\\Rest\\Teams\\Controller' => array(
             'input_filter' => 'WM2014API\\V1\\Rest\\Teams\\Validator',
+        ),
+        'WM2014API\\V1\\Rest\\Matches\\Controller' => array(
+            'input_filter' => 'WM2014API\\V1\\Rest\\Matches\\Validator',
         ),
     ),
     'input_filter_specs' => array(
@@ -117,6 +177,36 @@ return array(
                 'filters' => array(),
                 'validators' => array(),
                 'description' => 'Team code',
+            ),
+        ),
+        'WM2014API\\V1\\Rest\\Matches\\Validator' => array(
+            0 => array(
+                'name' => 'id',
+                'required' => true,
+                'filters' => array(),
+                'validators' => array(),
+                'description' => 'Match identifier',
+            ),
+            1 => array(
+                'name' => 'team1',
+                'required' => true,
+                'filters' => array(),
+                'validators' => array(),
+                'description' => 'Team 1 to play match',
+            ),
+            2 => array(
+                'name' => 'team2',
+                'required' => true,
+                'filters' => array(),
+                'validators' => array(),
+                'description' => 'Team 2 to play match',
+            ),
+            3 => array(
+                'name' => 'date',
+                'required' => true,
+                'filters' => array(),
+                'validators' => array(),
+                'description' => 'Date of match',
             ),
         ),
     ),
