@@ -122,4 +122,106 @@ return array(
         ),
         'description' => 'REST service to retrieve match collections and entities.',
     ),
+    'WM2014API\\V1\\Rest\\Bets\\Controller' => array(
+        'collection' => array(
+            'GET' => array(
+                'description' => 'Retrieve a paginated list of bets.',
+                'request' => null,
+                'response' => '{
+   "_links": {
+       "self": {
+           "href": "/bets"
+       },
+       "first": {
+           "href": "/bets?page={page}"
+       },
+       "prev": {
+           "href": "/bets?page={page}"
+       },
+       "next": {
+           "href": "/bets?page={page}"
+       },
+       "last": {
+           "href": "/bets?page={page}"
+       }
+   }
+   "_embedded": {
+       "bets": [
+           {
+               "_links": {
+                   "self": {
+                       "href": "/bets[/:bets_id]"
+                   }
+               }
+              "id": "Bet identifier",
+              "match": "Bet match identifier",
+              "goals1": "Goals for team 1.",
+              "goals2": "Goals for team 2."
+           }
+       ]
+   }
+}',
+            ),
+            'POST' => array(
+                'description' => 'Create a new bet entity.',
+                'request' => '{
+   "id": "Bet identifier",
+   "match": "Bet match identifier",
+   "goals1": "Goals for team 1.",
+   "goals2": "Goals for team 2."
+}',
+                'response' => '{
+   "_links": {
+       "self": {
+           "href": "/bets[/:bets_id]"
+       }
+   }
+   "id": "Bet identifier",
+   "match": "Bet match identifier",
+   "goals1": "Goals for team 1.",
+   "goals2": "Goals for team 2."
+}',
+            ),
+            'description' => 'Retrieve a bet collection.',
+        ),
+        'entity' => array(
+            'GET' => array(
+                'description' => 'Retrieve an entity of a bet.',
+                'request' => null,
+                'response' => '{
+   "_links": {
+       "self": {
+           "href": "/bets[/:bets_id]"
+       }
+   }
+   "id": "Bet identifier",
+   "match": "Bet match identifier",
+   "goals1": "Goals for team 1.",
+   "goals2": "Goals for team 2."
+}',
+            ),
+            'DELETE' => array(
+                'description' => 'Delete an entity of a bet.',
+                'request' => '{
+   "id": "Bet identifier",
+   "match": "Bet match identifier",
+   "goals1": "Goals for team 1.",
+   "goals2": "Goals for team 2."
+}',
+                'response' => '{
+   "_links": {
+       "self": {
+           "href": "/bets[/:bets_id]"
+       }
+   }
+   "id": "Bet identifier",
+   "match": "Bet match identifier",
+   "goals1": "Goals for team 1.",
+   "goals2": "Goals for team 2."
+}',
+            ),
+            'description' => 'Retrieve or delete a bet entity.',
+        ),
+        'description' => 'REST service to retrieve and manipulate bet collections and entities.',
+    ),
 );
