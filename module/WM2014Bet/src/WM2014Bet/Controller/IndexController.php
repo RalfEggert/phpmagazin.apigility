@@ -11,6 +11,8 @@
 
 namespace WM2014Bet\Controller;
 
+use WM2014Bet\Form\BetForm;
+use WM2014Bet\Service\BetService;
 use WM2014Bet\Service\MatchService;
 use WM2014Bet\Service\TeamService;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -32,6 +34,16 @@ class IndexController extends AbstractActionController
      * @var TeamService
      */
     protected $teamService = null;
+
+    /**
+     * @var BetService
+     */
+    protected $betService = null;
+
+    /**
+     * @var BetForm
+     */
+    protected $betForm = null;
 
     /**
      * @param \WM2014Bet\Service\MatchService $matchService
@@ -66,6 +78,38 @@ class IndexController extends AbstractActionController
     }
 
     /**
+     * @param \WM2014Bet\Service\BetService $betService
+     */
+    public function setBetService($betService)
+    {
+        $this->betService = $betService;
+    }
+
+    /**
+     * @return \WM2014Bet\Service\BetService
+     */
+    public function getBetService()
+    {
+        return $this->betService;
+    }
+
+    /**
+     * @param \WM2014Bet\Form\BetForm $betForm
+     */
+    public function setBetForm($betForm)
+    {
+        $this->betForm = $betForm;
+    }
+
+    /**
+     * @return \WM2014Bet\Form\BetForm
+     */
+    public function getBetForm()
+    {
+        return $this->betForm;
+    }
+
+    /**
      * @return ViewModel
      */
     public function indexAction()
@@ -84,9 +128,16 @@ class IndexController extends AbstractActionController
     {
         $id = $this->params()->fromRoute('id');
 
+        if ($this->getRequest()->isPost()) {
+            $this->getBetService()->save($id, $this->params()->fromPost());
+
+            return $this->redirect()->toRoute('wm2014-bet/action', array(), true);
+        }
+
         $viewModel = new ViewModel();
         $viewModel->setVariable('match', $this->getMatchService()->fetchOne($id));
         $viewModel->setVariable('teams', $this->getTeamService()->fetchOptions());
+        $viewModel->setVariable('form', $this->getBetForm());
 
         return $viewModel;
     }

@@ -40,6 +40,7 @@ return array(
     ),
     'service_manager' => array(
         'factories' => array(
+            'WM2014Bet\Service\Bet'   => 'WM2014Bet\Service\BetServiceFactory',
             'WM2014Bet\Service\Match' => 'WM2014Bet\Service\MatchServiceFactory',
             'WM2014Bet\Service\Team'  => 'WM2014Bet\Service\TeamServiceFactory',
         ),
@@ -47,6 +48,11 @@ return array(
     'controllers'     => array(
         'factories' => array(
             'WM2014Bet\Controller\Index' => 'WM2014Bet\Controller\IndexControllerFactory',
+        ),
+    ),
+    'form_elements'   => array(
+        'invokables' => array(
+            'WM2014Bet\Form\Bet' => 'WM2014Bet\Form\BetForm',
         ),
     ),
     'view_manager'    => array(

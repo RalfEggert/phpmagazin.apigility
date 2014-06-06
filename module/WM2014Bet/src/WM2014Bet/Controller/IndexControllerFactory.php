@@ -35,10 +35,14 @@ class IndexControllerFactory implements FactoryInterface
 
         $teamService  = $serviceLocator->get('WM2014Bet\Service\Team');
         $matchService = $serviceLocator->get('WM2014Bet\Service\Match');
+        $betService   = $serviceLocator->get('WM2014Bet\Service\Bet');
+        $betForm      = $formElementManager->get('WM2014Bet\Form\Bet');
 
         $controller = new IndexController();
         $controller->setMatchService($matchService);
         $controller->setTeamService($teamService);
+        $controller->setBetService($betService);
+        $controller->setBetForm($betForm);
 
         return $controller;
     }
